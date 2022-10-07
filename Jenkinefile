@@ -9,18 +9,23 @@ pipeline {
           }
         }
         
-        stage ("terraform init") {
-            steps {
-                sh ('terraform init') 
+        stage('Initialize'){
+            steps{
+                sh 'terraform init'
             }
         }
         
-       stage ("terraform Action") {
-            steps {
-                echo "Terraform action is --> ${action}"
-                sh ('terraform ${action} --auto-approve') 
-                
+         stage('Plan'){
+            steps{
+                sh 'terraform plan'
             }
         }
+		
+		 stage('Apply'){
+            steps{
+                sh 'terraform apply -auto-approve'
+            }
+        }
+		
     }
 }
